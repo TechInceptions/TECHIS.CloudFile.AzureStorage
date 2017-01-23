@@ -7,8 +7,8 @@
     <ProjectGuid>{50668571-8167-4F8D-BACB-EF7EECA183B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TECHIS.AzureStorage.CloudFile</RootNamespace>
-    <AssemblyName>TECHIS.AzureStorage.CloudFile</AssemblyName>
+    <RootNamespace>TECHIS.CloudFile.AzureStorage</RootNamespace>
+    <AssemblyName>TECHIS.CloudFile.AzureStorage</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

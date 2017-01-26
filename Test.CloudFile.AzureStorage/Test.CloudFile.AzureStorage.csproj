@@ -36,8 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="TECHIS.CloudFile, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TECHIS.CloudFile.0.1.1.0\lib\net45\TECHIS.CloudFile.dll</HintPath>
+    <Reference Include="TECHIS.CloudFile, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TECHIS.CloudFile.0.1.5\lib\net40\TECHIS.CloudFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestBlobManager.cs" />
     <Compile Include="TestBlobReaderWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

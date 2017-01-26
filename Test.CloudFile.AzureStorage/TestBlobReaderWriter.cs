@@ -13,8 +13,7 @@ namespace Test.Cloud.AzureStorage
         [TestMethod]
         public void ReadText()
         {
-            var fileName        = "l1/l2";
-            string data = (new Reader()).Connect(GetContainerUri()).ReadText(fileName);
+            string data = (new Reader()).Connect(GetContainerUri()).ReadText(FixedFileName);
 
             Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -22,21 +21,21 @@ namespace Test.Cloud.AzureStorage
         [TestMethod]
         public void WriteText()
         {
-            Writer br = new Writer();
+            
             var containerUri = GetContainerUri();
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes("Test data");
-            br.Connect(containerUri).WriteToBlob(data, fileName);
+            (new Writer()).Connect(containerUri).WriteToBlob(data, fileName);
 
             //Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
         [TestMethod]
         public void ReadTextAsync()
         {
-            Reader br = new Reader();
+            
             var containerUri = GetContainerUri();
-            var fileName = "l1/l2";
-            string data = br.Connect(containerUri).ReadTextAsync(fileName).Result;
+            var fileName = FixedFileName;
+            string data = (new Reader()).Connect(containerUri).ReadTextAsync(fileName).Result;
 
             Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -45,16 +44,16 @@ namespace Test.Cloud.AzureStorage
         {
             Reader br = new Reader();
             var containerUri = GetContainerUri();
-            var fileName = "l1/l2";
+            var fileName = FixedFileName;
             string data = null;
 
+            Encoding e = Encoding.UTF8;
             Task task = null;
-            using (MemoryStream ms = new MemoryStream() )
+            using (MemoryStream ms = new MemoryStream())
             {
-                var e = Encoding.UTF8;
-                task = br.Connect(containerUri,e).ReadDataAsync(fileName, ms);
+                task = br.Connect(containerUri, e).ReadDataAsync(fileName, ms);
                 task.Wait();
-                data = new string( e.GetChars(ms.ToArray()));
+                data = new string(e.GetChars(ms.ToArray()));
             }
             Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -81,12 +80,14 @@ namespace Test.Cloud.AzureStorage
             Assert.IsTrue(task.IsCompleted, "Failed to Write Async blob file");
         }
 
+        private string FixedFileName => "FixedDirectory/S2715H.inf";
+
         private static string GetContainerUri()
         {
-            return "https://store4.blob.core.windows.net/test?sv=2015-12-11&si=blobRW&sr=c&sig=MdWR5Pal76ybGbWpqm5pSuNdtTgijU6gODXt17%2Bv3sg%3D";
+            return "https://tests4dev.blob.core.windows.net/cloudfile?sv=2015-12-11&si=cloudfile-RWLD&sr=c&sig=qXnlg3DGNBrT8wWVAeeeqn8asP%2BJXjYdXH1os6mdaCU%3D";
         }
 
-        private string StorageConnectionString => "SharedAccessSignature=sv=2015-12-11&ss=bfqt&srt=sco&sp=rwdl&st=2017-01-17T13%3A31%3A00Z&se=2017-01-21T13%3A31%3A00Z&sig=ms6DI%2BTf7ywQwXHnuuc5CZPZahaJSHNSExLmpqTedLE%3D;BlobEndpoint=https://store4.blob.core.windows.net/;FileEndpoint=https://store4.file.core.windows.net/;QueueEndpoint=https://store4.queue.core.windows.net/;TableEndpoint=https://store4.table.core.windows.net/";
-        
+        private string StorageConnectionString => "SharedAccessSignature=sv=2015-12-11&ss=b&srt=co&sp=rwdl&st=2017-01-26T18%3A30%3A00Z&se=2017-01-27T18%3A30%3A00Z&sig=L3aGGQvavraUihwn49sCJRSHY9UJvPiknM6OpGL3GI0%3D;BlobEndpoint=https://tests4dev.blob.core.windows.net/";
+
     }
 }

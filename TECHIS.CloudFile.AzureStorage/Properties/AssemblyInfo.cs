@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("TECHIS.CloudFile.AzureStorage")]
 [assembly: AssemblyDescription(@"
-TECHIS.CloudFile.AzureStorage
+# TECHIS.CloudFile.AzureStorage
 Azure Blob Storage implementation of the TECHIS.CloudFile interfaces.
 
-TECHIS.CloudFile 
+## TECHIS.CloudFile 
 Class interfaces for accessing files stored in cloud platforms like AWS or Azure
 ")]
 [assembly: AssemblyConfiguration("")]
@@ -38,5 +38,5 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.0")]
-[assembly: AssemblyFileVersion("0.1.0")]
+[assembly: AssemblyVersion("0.1.1")]
+[assembly: AssemblyFileVersion("0.1.1")]

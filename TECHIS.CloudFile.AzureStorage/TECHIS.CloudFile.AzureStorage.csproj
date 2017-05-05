@@ -16,6 +16,7 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
     <PackageProjectUrl>http://techinceptions.com/Support/Packages/CloudFile</PackageProjectUrl>
     <PackageReleaseNotes>Migrated to .NET Standard Library</PackageReleaseNotes>
     <PackageTags>Azure Storage for CloudFile File</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TECHIS.CloudFile.AzureStorage", "TECHIS.CloudFile.AzureStorage\TECHIS.CloudFile.AzureStorage.csproj", "{50668571-8167-4F8D-BACB-EF7EECA183B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TECHIS.CloudFile.AzureStorage", "TECHIS.CloudFile.AzureStorage\TECHIS.CloudFile.AzureStorage.csproj", "{868F10F9-232A-41F6-947C-F16C4306ED98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CloudFile.AzureStorage", "Test.CloudFile.AzureStorage\Test.CloudFile.AzureStorage.csproj", "{E0752208-9D86-48D4-8CA3-A7CB5F822907}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB682FE5-AD24-4888-B16F-C874BBEE27C1}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CloudFile.AzureStorage", "Test.CloudFile.AzureStorage\Test.CloudFile.AzureStorage.csproj", "{1193C205-1057-48D8-A7C6-DDCCA70A8119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{50668571-8167-4F8D-BACB-EF7EECA183B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50668571-8167-4F8D-BACB-EF7EECA183B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50668571-8167-4F8D-BACB-EF7EECA183B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50668571-8167-4F8D-BACB-EF7EECA183B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0752208-9D86-48D4-8CA3-A7CB5F822907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0752208-9D86-48D4-8CA3-A7CB5F822907}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0752208-9D86-48D4-8CA3-A7CB5F822907}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0752208-9D86-48D4-8CA3-A7CB5F822907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{868F10F9-232A-41F6-947C-F16C4306ED98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868F10F9-232A-41F6-947C-F16C4306ED98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868F10F9-232A-41F6-947C-F16C4306ED98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868F10F9-232A-41F6-947C-F16C4306ED98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

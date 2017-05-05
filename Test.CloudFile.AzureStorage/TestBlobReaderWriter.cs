@@ -55,7 +55,23 @@ namespace Test.Cloud.AzureStorage
                 task.Wait();
                 data = new string(e.GetChars(ms.ToArray()));
             }
-            Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
+            Assert.IsFalse(string.IsNullOrEmpty(data), $"Failed to read blob file via {nameof(ReadDataAsync)}");
+        }
+        [TestMethod]
+        public void ReadData()
+        {
+            Reader br = new Reader();
+            var containerUri = GetContainerUri();
+            var fileName = FixedFileName;
+            string data = null;
+
+            Encoding e = Encoding.UTF8;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                br.Connect(containerUri, e).ReadData(fileName, ms);
+                data = new string(e.GetChars(ms.ToArray()));
+            }
+            Assert.IsFalse(string.IsNullOrEmpty(data), $"Failed to read blob file via {nameof(ReadData)}");
         }
 
         [TestMethod]
@@ -87,7 +103,7 @@ namespace Test.Cloud.AzureStorage
             return "https://tests4dev.blob.core.windows.net/cloudfile?sv=2015-12-11&si=cloudfile-RWLD&sr=c&sig=qXnlg3DGNBrT8wWVAeeeqn8asP%2BJXjYdXH1os6mdaCU%3D";
         }
 
-        private string StorageConnectionString => "SharedAccessSignature=sv=2015-12-11&ss=b&srt=co&sp=rwdl&st=2017-01-26T18%3A30%3A00Z&se=2017-01-27T18%3A30%3A00Z&sig=L3aGGQvavraUihwn49sCJRSHY9UJvPiknM6OpGL3GI0%3D;BlobEndpoint=https://tests4dev.blob.core.windows.net/";
+        private string StorageConnectionString => "SharedAccessSignature=sv=2016-05-31&ss=b&srt=co&sp=rwdl&st=2017-05-05T17%3A36%3A00Z&se=2018-05-06T17%3A36%3A00Z&sig=4qZAoOGRiuwK9THxy%2BTH4tLznQt%2FZIRESPvg%2Bc8qsTA%3D;BlobEndpoint=https://tests4dev.blob.core.windows.net/";
 
     }
 }

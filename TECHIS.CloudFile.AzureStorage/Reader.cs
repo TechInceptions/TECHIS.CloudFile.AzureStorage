@@ -24,6 +24,11 @@ namespace TECHIS.CloudFile.AzureStorage
             return this;
         }
 
+        public void ReadData(string fileName, Stream output)
+        {
+            _BlobReader.ReadData(fileName, output);
+        }
+
         public Task ReadDataAsync(string fileName, Stream output)
         {
             return _BlobReader.ReadDataAsync(fileName, output);

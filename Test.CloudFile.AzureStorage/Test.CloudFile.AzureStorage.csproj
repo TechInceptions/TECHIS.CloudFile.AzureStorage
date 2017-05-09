@@ -158,8 +158,8 @@
     <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
     </Reference>
-    <Reference Include="TECHIS.Cloud.AzureStorage, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TECHIS.Cloud.AzureStorage.0.2.3\lib\netstandard1.5\TECHIS.Cloud.AzureStorage.dll</HintPath>
+    <Reference Include="TECHIS.Cloud.AzureStorage, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TECHIS.Cloud.AzureStorage.0.2.5\lib\netstandard1.5\TECHIS.Cloud.AzureStorage.dll</HintPath>
     </Reference>
     <Reference Include="TECHIS.CloudFile, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TECHIS.CloudFile.0.2.0\lib\netstandard1.1\TECHIS.CloudFile.dll</HintPath>

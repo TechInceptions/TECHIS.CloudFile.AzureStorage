@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5;netstandard1.6</TargetFrameworks>
-    <Version>0.2.1</Version>
-    <AssemblyVersion>0.2.1.0</AssemblyVersion>
-    <FileVersion>0.2.1.0</FileVersion>
+    <Version>0.2.1.1</Version>
+    <AssemblyVersion>0.2.1.1</AssemblyVersion>
+    <FileVersion>0.2.1.1</FileVersion>
     <Authors>Arinze, TECH-IS</Authors>
     <Company>TECH-IS INC.</Company>
     <Description># TECHIS.CloudFile.AzureStorage
@@ -15,12 +15,13 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
     <RepositoryUrl>https://github.com/TechInceptions/TECHIS.CloudFile.AzureStorage</RepositoryUrl>
     <PackageProjectUrl>http://techinceptions.com/Support/Packages/CloudFile</PackageProjectUrl>
     <PackageReleaseNotes>Updated dependencies</PackageReleaseNotes>
-    <PackageTags>Azure Storage for CloudFile File</PackageTags>
+    <PackageTags>Azure Storage for CloudFile File TECHIS</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>C:\Data\PackageRepo</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.2.4" />
+    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.2.5" />
     <PackageReference Include="TECHIS.CloudFile" Version="0.2.0" />
   </ItemGroup>
 

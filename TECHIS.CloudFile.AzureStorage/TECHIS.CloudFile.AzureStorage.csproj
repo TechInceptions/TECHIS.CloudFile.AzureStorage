@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.5;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5;netstandard1.6;netstandard2.0</TargetFrameworks>
     <Version>0.2.1.1</Version>
-    <AssemblyVersion>0.2.1.1</AssemblyVersion>
-    <FileVersion>0.2.1.1</FileVersion>
+    <AssemblyVersion>0.2.1.2</AssemblyVersion>
+    <FileVersion>0.2.1.2</FileVersion>
     <Authors>Arinze, TECH-IS</Authors>
     <Company>TECH-IS INC.</Company>
     <Description># TECHIS.CloudFile.AzureStorage
@@ -21,8 +21,8 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.2.5" />
-    <PackageReference Include="TECHIS.CloudFile" Version="0.2.0" />
+    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.2.5.6" />
+    <PackageReference Include="TECHIS.CloudFile" Version="0.2.1" />
   </ItemGroup>
 
 </Project>

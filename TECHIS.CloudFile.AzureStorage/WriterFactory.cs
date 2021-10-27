@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,39 +9,25 @@ using TECHIS.Cloud.AzureStorage;
 using TECHIS.CloudFile;
 namespace TECHIS.CloudFile.AzureStorage
 {
-    public class Writer : ICloudFileWriterFactory, ICloudFileWriter
+    public class WriterFactory : ICloudFileWriterFactory
     {
-        private BlobWriter _BlobWriter = new BlobWriter();
+        ConcurrentDictionary<string, Writer> _BlobWriters = new ConcurrentDictionary<string, Writer>();
+
         public ICloudFileWriter Connect(string containerUri, Encoding encoding = null)
         {
-            _BlobWriter.Connect(containerUri, encoding);
-            return this;
+
+            return _BlobWriters.GetOrAdd(containerUri, (key) => new Writer(new BlobWriter().Connect(containerUri, encoding)));
         }
 
         public ICloudFileWriter Connect(string azureStorageConnectionString, string containerName, Encoding encoding = null)
         {
-            _BlobWriter.Connect(azureStorageConnectionString, containerName, encoding);
-            return this;
+            var conKey = $"{azureStorageConnectionString}|{containerName}";
+
+            return _BlobWriters.GetOrAdd(conKey, (key) => new Writer(new BlobWriter().Connect(azureStorageConnectionString, containerName, encoding)));
+
         }
 
-        public void WriteToBlob(byte[] data, string fileName)
-        {
-            _BlobWriter.WriteToBlob(data, fileName);
-        }
 
-        public void WriteToBlob(Stream ms, string fileName)
-        {
-            _BlobWriter.WriteToBlob(ms, fileName);
-        }
 
-        public Task WriteToBlobAsync(byte[] data, string fileName)
-        {
-            return _BlobWriter.WriteToBlobAsync(data, fileName);
-        }
-
-        public Task WriteToBlobAsync(Stream ms, string fileName)
-        {
-            return _BlobWriter.WriteToBlobAsync(ms, fileName);
-        }
     }
 }

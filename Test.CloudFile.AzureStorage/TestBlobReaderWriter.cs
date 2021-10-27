@@ -13,7 +13,7 @@ namespace Test.Cloud.AzureStorage
         [TestMethod]
         public void ReadText()
         {
-            string data = (new Reader()).Connect(GetContainerUri()).ReadText(FixedFileName);
+            string data = (new ReaderFactory()).Connect(GetContainerUri()).ReadText(FixedFileName);
 
             Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -25,7 +25,7 @@ namespace Test.Cloud.AzureStorage
             var containerUri = GetContainerUri();
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes("Test data");
-            (new Writer()).Connect(containerUri).WriteToBlob(data, fileName);
+            (new WriterFactory()).Connect(containerUri).WriteToBlob(data, fileName);
 
             //Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -35,23 +35,23 @@ namespace Test.Cloud.AzureStorage
             
             var containerUri = GetContainerUri();
             var fileName = FixedFileName;
-            string data = (new Reader()).Connect(containerUri).ReadTextAsync(fileName).Result;
+            string data = (new ReaderFactory()).Connect(containerUri).ReadTextAsync(fileName).Result;
 
             Assert.IsFalse(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
         [TestMethod]
         public void ReadDataAsync()
         {
-            Reader br = new Reader();
             var containerUri = GetContainerUri();
+            Encoding e = Encoding.UTF8;
+            var br = new ReaderFactory().Connect(containerUri, e);
             var fileName = FixedFileName;
             string data = null;
 
-            Encoding e = Encoding.UTF8;
             Task task = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                task = br.Connect(containerUri, e).ReadDataAsync(fileName, ms);
+                task = br.ReadDataAsync(fileName, ms);
                 task.Wait();
                 data = new string(e.GetChars(ms.ToArray()));
             }
@@ -60,15 +60,15 @@ namespace Test.Cloud.AzureStorage
         [TestMethod]
         public void ReadData()
         {
-            Reader br = new Reader();
             var containerUri = GetContainerUri();
+            Encoding e = Encoding.UTF8;
+            var br = new ReaderFactory().Connect(containerUri, e);
             var fileName = FixedFileName;
             string data = null;
 
-            Encoding e = Encoding.UTF8;
             using (MemoryStream ms = new MemoryStream())
             {
-                br.Connect(containerUri, e).ReadData(fileName, ms);
+                br.ReadData(fileName, ms);
                 data = new string(e.GetChars(ms.ToArray()));
             }
             Assert.IsFalse(string.IsNullOrEmpty(data), $"Failed to read blob file via {nameof(ReadData)}");
@@ -77,21 +77,21 @@ namespace Test.Cloud.AzureStorage
         [TestMethod]
         public void WriteTextAsync()
         {
-            Writer br = new Writer();
             string containerUri = GetContainerUri();
+            var br = new WriterFactory().Connect(containerUri);
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
-            var task = br.Connect(containerUri).WriteToBlobAsync(data, fileName);
+            var task = br.WriteToBlobAsync(data, fileName);
             task.Wait();
             Assert.IsTrue(task.IsCompleted, "Failed to Write Async blob file");
         }
         [TestMethod]
         public void WriteTextAsync2()
         {
-            Writer br = new Writer();
+            var br = new WriterFactory().Connect(StorageConnectionString, "test");
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
-            var task = br.Connect(StorageConnectionString, "test").WriteToBlobAsync(data, fileName);
+            var task = br.WriteToBlobAsync(data, fileName);
             task.Wait();
             Assert.IsTrue(task.IsCompleted, "Failed to Write Async blob file");
         }

@@ -59,7 +59,7 @@ namespace Test.Cloud.AzureStorage
             return ConnectedManager.ListAsync(path).Result;
         }
 
-        private ICloudFileManager ConnectedManager=> (new Manager()).Connect(GetContainerUri());
+        private ICloudFileManager ConnectedManager=> (new ManagerFactory()).Connect(GetContainerUri());
 
         
         private static string GetContainerUri()

@@ -7,21 +7,14 @@ using TECHIS.Cloud.AzureStorage;
 
 namespace TECHIS.CloudFile.AzureStorage
 {
-    public class Manager : ICloudFileManager, ICloudFileManagerFactory
+    public class Manager : ICloudFileManager
     {
 
-        private BlobManager _BlobManager = new BlobManager();
+        private readonly BlobManager _BlobManager;
 
-        public ICloudFileManager Connect(string containerUri, Encoding encoding = null)
+        public Manager(BlobManager blobManager)
         {
-            _BlobManager.Connect(containerUri, encoding);
-            return this;
-        }
-
-        public ICloudFileManager Connect(string azureStorageConnectionString, string containerName, Encoding encoding = null)
-        {
-            _BlobManager.Connect(azureStorageConnectionString, containerName, encoding);
-            return this;
+            _BlobManager = blobManager ?? throw new ArgumentNullException(nameof(blobManager));
         }
 
         public void Delete(string fileName)

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TECHIS.CloudFile.AzureStorage", "TECHIS.CloudFile.AzureStorage\TECHIS.CloudFile.AzureStorage.csproj", "{868F10F9-232A-41F6-947C-F16C4306ED98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TECHIS.CloudFile.AzureStorage", "TECHIS.CloudFile.AzureStorage\TECHIS.CloudFile.AzureStorage.csproj", "{868F10F9-232A-41F6-947C-F16C4306ED98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CloudFile.AzureStorage", "Test.CloudFile.AzureStorage\Test.CloudFile.AzureStorage.csproj", "{1193C205-1057-48D8-A7C6-DDCCA70A8119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TECHIS.CloudFile.AzureStorage.Test", "TECHIS.CloudFile.AzureStorage.Test\TECHIS.CloudFile.AzureStorage.Test.csproj", "{BF4FE4F4-CEB3-4063-9911-F93DE117C7BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +17,15 @@ Global
 		{868F10F9-232A-41F6-947C-F16C4306ED98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868F10F9-232A-41F6-947C-F16C4306ED98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868F10F9-232A-41F6-947C-F16C4306ED98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1193C205-1057-48D8-A7C6-DDCCA70A8119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4FE4F4-CEB3-4063-9911-F93DE117C7BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4FE4F4-CEB3-4063-9911-F93DE117C7BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4FE4F4-CEB3-4063-9911-F93DE117C7BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4FE4F4-CEB3-4063-9911-F93DE117C7BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {279D0F85-0D1B-4CD4-BE16-4B0D1A2DC672}
 	EndGlobalSection
 EndGlobal

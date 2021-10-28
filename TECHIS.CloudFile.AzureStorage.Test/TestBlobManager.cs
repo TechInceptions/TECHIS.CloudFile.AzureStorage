@@ -1,57 +1,57 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TECHIS.CloudFile.AzureStorage;
 using System.Linq;
 using TECHIS.CloudFile;
+using Xunit;
 
 namespace Test.Cloud.AzureStorage
 {
-    [TestClass]
+
     public class TestBlobManager
     {
-        [TestMethod]
-        public void TestDelete()
+        [Fact]
+        public async Task TestDelete()
         {
             string path = "ForDelete";
             var list = ListFilesAsync(path);
 
-            Assert.IsTrue(list != null && list.Length > 0, "Failed to get valid location for testing delete location");
+            Assert.True(list != null && list.Length > 0, "Failed to get valid location for testing delete location");
 
             var initial1st = list[0];
-            ConnectedManager.DeleteAsync(initial1st).Wait();
+            await ConnectedManager.DeleteAsync(initial1st);
 
             var new1st = ListFilesAsync(path)[0];
 
-            Assert.IsFalse(string.Equals(initial1st, new1st), "Failed to delete item");
+            Assert.False(string.Equals(initial1st, new1st), "Failed to delete item");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestListContainerRoot()
         {
             string path = null;
             var list = ConnectedManager.ListAsync(path).Result;
 
-            Assert.IsTrue(list != null && list.Length > 0, "failed to list items in container");
+            Assert.True(list != null && list.Length > 0, "failed to list items in container");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestListContainerChild()
         {
             string path = "PackageRepo";
             string[] list = ConnectedManager.ListAsync(path).Result;
 
-            Assert.IsTrue(list != null && list.Length > 0 && list.All(p=>p.Contains($"{path}/") ), "failed to list only items in child folder");
+            Assert.True(list != null && list.Length > 0 && list.All(p=>p.Contains($"{path}/") ), "failed to list only items in child folder");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestListContainerSubChild()
         {
             string path = "Samples/graphics/graphics";
             var list = ConnectedManager.ListAsync(path).Result;
 
-            Assert.IsTrue(list != null && list.Length > 0 && list.All(p => p.Contains($"{path}/")), "failed to list only items in child folder");
+            Assert.True(list != null && list.Length > 0 && list.All(p => p.Contains($"{path}/")), "failed to list only items in child folder");
         }
 
         private string[] ListFilesAsync(string path)
@@ -59,7 +59,7 @@ namespace Test.Cloud.AzureStorage
             return ConnectedManager.ListAsync(path).Result;
         }
 
-        private ICloudFileManager ConnectedManager=> (new Manager()).Connect(GetContainerUri());
+        private ICloudFileManager ConnectedManager=> (new ManagerFactory()).Connect(GetContainerUri());
 
         
         private static string GetContainerUri()

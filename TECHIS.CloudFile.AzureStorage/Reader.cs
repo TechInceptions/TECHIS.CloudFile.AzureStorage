@@ -8,20 +8,13 @@ using TECHIS.CloudFile;
 using TECHIS.Cloud.AzureStorage;
 namespace TECHIS.CloudFile.AzureStorage
 {
-    public class Reader : ICloudFileReader, ICloudFileReaderFactory
+    public class Reader : ICloudFileReader
     {
-        private BlobReader _BlobReader = new BlobReader();
+        private readonly BlobReader _BlobReader;
 
-        public ICloudFileReader Connect(string containerUri, Encoding encoding = null)
+        public Reader(BlobReader blobReader)
         {
-            _BlobReader.Connect(containerUri, encoding);
-            return this;
-        }
-
-        public ICloudFileReader Connect(string azureStorageConnectionString, string containerName, Encoding encoding = null)
-        {
-            _BlobReader.Connect(azureStorageConnectionString, containerName, encoding);
-            return this;
+            _BlobReader = blobReader ?? throw new ArgumentNullException(nameof(blobReader));
         }
 
         public void ReadData(string fileName, Stream output)

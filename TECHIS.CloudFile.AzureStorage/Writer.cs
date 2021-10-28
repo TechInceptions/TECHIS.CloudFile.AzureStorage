@@ -8,19 +8,13 @@ using TECHIS.Cloud.AzureStorage;
 using TECHIS.CloudFile;
 namespace TECHIS.CloudFile.AzureStorage
 {
-    public class Writer : ICloudFileWriterFactory, ICloudFileWriter
+    public class Writer : ICloudFileWriter
     {
-        private BlobWriter _BlobWriter = new BlobWriter();
-        public ICloudFileWriter Connect(string containerUri, Encoding encoding = null)
-        {
-            _BlobWriter.Connect(containerUri, encoding);
-            return this;
-        }
+        private BlobWriter _BlobWriter;
 
-        public ICloudFileWriter Connect(string azureStorageConnectionString, string containerName, Encoding encoding = null)
+        public Writer(BlobWriter blobWriter)
         {
-            _BlobWriter.Connect(azureStorageConnectionString, containerName, encoding);
-            return this;
+            _BlobWriter = blobWriter ?? throw new ArgumentNullException(nameof(blobWriter));
         }
 
         public void WriteToBlob(byte[] data, string fileName)

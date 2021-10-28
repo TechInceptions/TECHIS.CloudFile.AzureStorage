@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>0.2.1.3</Version>
-    <AssemblyVersion>0.2.1.3</AssemblyVersion>
-    <FileVersion>0.2.1.3</FileVersion>
+    <Version>0.3.1.3</Version>
+    <AssemblyVersion>0.3.1.3</AssemblyVersion>
+    <FileVersion>0.3.1.3</FileVersion>
     <Authors>Arinze, TECH-IS</Authors>
     <Company>TECH-IS INC.</Company>
     <Description># TECHIS.CloudFile.AzureStorage
@@ -21,7 +21,7 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.2.5.6" />
+    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="0.3.5.6" />
     <PackageReference Include="TECHIS.CloudFile" Version="0.2.1" />
   </ItemGroup>
 

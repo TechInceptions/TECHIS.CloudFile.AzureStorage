@@ -21,7 +21,7 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="1.0.0" />
+    <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="2.0.0" />
     <PackageReference Include="TECHIS.CloudFile" Version="0.2.1" />
   </ItemGroup>
 

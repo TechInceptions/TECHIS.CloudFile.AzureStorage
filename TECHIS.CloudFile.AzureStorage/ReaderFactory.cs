@@ -7,13 +7,19 @@ using System.Threading.Tasks;
 using TECHIS.CloudFile;
 using TECHIS.Cloud.AzureStorage;
 using System.Collections.Concurrent;
+using TECHIS.Core;
+using Newtonsoft.Json.Bson;
 
 namespace TECHIS.CloudFile.AzureStorage
 {
     public class ReaderFactory : ICloudFileReaderFactory
     {
+        private readonly IDefaultAppCredentialTokenFactory _DefaultAppCredentialTokenFactory;
         ConcurrentDictionary<string, Reader> _BlobReaders = new ConcurrentDictionary<string, Reader>();
-
+        public ReaderFactory(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory)
+        {
+            _DefaultAppCredentialTokenFactory = defaultAppCredentialTokenFactory;
+        }
         public ICloudFileReader Connect(string containerUri, Encoding encoding = null)
         {
             var blobReader = _BlobReaders.GetOrAdd(containerUri, (key) => new Reader(new BlobReader().Connect(containerUri, encoding)));
@@ -28,6 +34,17 @@ namespace TECHIS.CloudFile.AzureStorage
 
             return blobReader;
 
+        }
+
+        public ICloudFileReader ConnectWithDefaultCredentials(string containerUri, Encoding encoding = null)
+        {
+            return _BlobReaders.GetOrAdd(containerUri, (key) => new Reader(new BlobReader().Connect(containerUri, encoding, _DefaultAppCredentialTokenFactory.Create())));
+        }
+
+        public ICloudFileReader ConnectWithDefaultCredentials(string storageAccountUri, string containerName, Encoding encoding = null)
+        {
+            var conKey = $"{storageAccountUri}|{containerName}";
+            return _BlobReaders.GetOrAdd(conKey, (key) => new Reader(new BlobReader().Connect(storageAccountUri, containerName, encoding, _DefaultAppCredentialTokenFactory.Create())));
         }
     }
 }

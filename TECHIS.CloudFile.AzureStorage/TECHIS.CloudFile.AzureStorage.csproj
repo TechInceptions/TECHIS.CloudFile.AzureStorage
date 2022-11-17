@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <Version>3.0.0</Version>
     <Authors>Arinze, TECH-IS</Authors>
     <Company>TECH-IS INC.</Company>
     <Description># TECHIS.CloudFile.AzureStorage
@@ -14,7 +12,7 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
     <Copyright>Copyright © TECH-IS INC. 2022</Copyright>
     <RepositoryUrl>https://github.com/TechInceptions/TECHIS.CloudFile.AzureStorage</RepositoryUrl>
     <PackageProjectUrl>http://techinceptions.com/Support/Packages/CloudFile</PackageProjectUrl>
-    <PackageReleaseNotes>restricted to netstandard 2.0</PackageReleaseNotes>
+    <PackageReleaseNotes>restricted to netstandard 2.1</PackageReleaseNotes>
     <PackageTags>Azure Storage for CloudFile File TECHIS</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageOutputPath>C:\Data\PackageRepo</PackageOutputPath>
@@ -22,7 +20,8 @@ Class interfaces for accessing files stored in cloud platforms like AWS or Azure
 
   <ItemGroup>
     <PackageReference Include="TECHIS.Cloud.AzureStorage" Version="2.0.0" />
-    <PackageReference Include="TECHIS.CloudFile" Version="0.2.1" />
+    <PackageReference Include="TECHIS.Cloud.Credential" Version="1.0.0" />
+    <PackageReference Include="TECHIS.CloudFile" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

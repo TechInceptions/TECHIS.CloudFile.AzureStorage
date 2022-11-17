@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-
+using TECHIS.CloudFile;
 using TECHIS.CloudFile.AzureStorage;
+using TECHIS.Core;
 using Xunit;
 
 namespace Test.Cloud.AzureStorage
@@ -14,7 +16,7 @@ namespace Test.Cloud.AzureStorage
         [Fact]
         public void ReadText()
         {
-            string data = (new ReaderFactory()).Connect(GetContainerUri()).ReadText(FixedFileName);
+            string data = (new ReaderFactory(null)).Connect(Connector.GetContainerUri()).ReadText(FixedFileName);
 
             Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -23,10 +25,10 @@ namespace Test.Cloud.AzureStorage
         public void WriteText()
         {
             
-            var containerUri = GetContainerUri();
+            var containerUri = Connector.GetContainerUri();
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes("Test data");
-            (new WriterFactory()).Connect(containerUri).WriteToBlob(data, fileName);
+            (new WriterFactory(null)).Connect(containerUri).WriteToBlob(data, fileName);
 
             //Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
@@ -34,18 +36,18 @@ namespace Test.Cloud.AzureStorage
         public void ReadTextAsync()
         {
             
-            var containerUri = GetContainerUri();
+            var containerUri = Connector.GetContainerUri();
             var fileName = FixedFileName;
-            string data = (new ReaderFactory()).Connect(containerUri).ReadTextAsync(fileName).Result;
+            string data = (new ReaderFactory(null)).Connect(containerUri).ReadTextAsync(fileName).Result;
 
             Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
         [Fact]
         public async Task ReadDataAsync()
         {
-            var containerUri = GetContainerUri();
+            var containerUri = Connector.GetContainerUri();
             Encoding e = Encoding.UTF8;
-            var br = new ReaderFactory().Connect(containerUri, e);
+            var br = new ReaderFactory(null).Connect(containerUri, e);
             var fileName = FixedFileName;
             string data = null;
 
@@ -60,9 +62,9 @@ namespace Test.Cloud.AzureStorage
         [Fact]
         public void ReadData()
         {
-            var containerUri = GetContainerUri();
+            var containerUri = Connector.GetContainerUri();
             Encoding e = Encoding.UTF8;
-            var br = new ReaderFactory().Connect(containerUri, e);
+            var br = new ReaderFactory(null).Connect(containerUri, e);
             var fileName = FixedFileName;
             string data = null;
 
@@ -77,8 +79,7 @@ namespace Test.Cloud.AzureStorage
         [Fact]
         public async Task WriteTextAsync()
         {
-            string containerUri = GetContainerUri();
-            var br = new WriterFactory().Connect(containerUri);
+            var br = new WriterFactory(null).Connect(Connector.GetContainerUri());
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
             var task = br.WriteToBlobAsync(data, fileName);
@@ -86,9 +87,9 @@ namespace Test.Cloud.AzureStorage
             Assert.True(task.IsCompleted, "Failed to Write Async blob file");
         }
         [Fact]
-        public async Task WriteTextAsync2()
+        public async Task WriteTextToContainerAsync()
         {
-            var br = new WriterFactory().Connect(StorageConnectionString, "test");
+            var br = new WriterFactory(null).Connect(Connector.StorageConnectionString, "test");
             var fileName = "l1/l3";
             byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
             var task = br.WriteToBlobAsync(data, fileName);
@@ -96,15 +97,115 @@ namespace Test.Cloud.AzureStorage
             Assert.True(task.IsCompleted, "Failed to Write Async blob file");
         }
 
-        private string FixedFileName => "FixedDirectory/S2715H.inf";
+        #region With Factory 
 
-        private static string GetContainerUri()
+        [Fact]
+        public void ReadText2()
         {
-            return "https://tests4dev.blob.core.windows.net/cloudfile?sv=2015-12-11&si=cloudfile-RWLD&sr=c&sig=qXnlg3DGNBrT8wWVAeeeqn8asP%2BJXjYdXH1os6mdaCU%3D";
+            string data = GetConnectedReader(GetDefaultAppCredentialTokenFactory()).ReadText(FixedFileName);
+
+            Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
         }
 
-        //private string StorageConnectionString => "SharedAccessSignature=sv=2016-05-31&ss=b&srt=co&sp=rwdl&st=2017-05-05T17%3A36%3A00Z&se=2018-05-06T17%3A36%3A00Z&sig=4qZAoOGRiuwK9THxy%2BTH4tLznQt%2FZIRESPvg%2Bc8qsTA%3D;BlobEndpoint=https://tests4dev.blob.core.windows.net/";
-          private string StorageConnectionString => "SharedAccessSignature=sv=2020-04-08&ss=btqf&srt=sco&st=2021-10-26T11%3A48%3A00Z&se=2040-10-29T11%3A48%3A00Z&sp=rwdxftlacup&sig=d02Dv2Xg03j8dZT1oX0gt6FmmF5jk88TXjOIbqNLgzA%3D;BlobEndpoint=https://tests4dev.blob.core.windows.net/;FileEndpoint=https://tests4dev.file.core.windows.net/;QueueEndpoint=https://tests4dev.queue.core.windows.net/;TableEndpoint=https://tests4dev.table.core.windows.net/;";
+        [Fact]
+        public void WriteText2()
+        {
+
+            var fileName = "l1/l3";
+            byte[] data = System.Text.Encoding.UTF8.GetBytes("Test data");
+            GetConnectedWriter(GetDefaultAppCredentialTokenFactory()).WriteToBlob(data, fileName);
+
+            //Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
+        }
+        [Fact]
+        public void ReadTextAsync2()
+        {
+            var fileName = FixedFileName;
+            string data = GetConnectedReader(GetDefaultAppCredentialTokenFactory()).ReadTextAsync(fileName).Result;
+
+            Assert.False(string.IsNullOrEmpty(data), "Failed to read blob file");
+        }
+        [Fact]
+        public async Task ReadDataAsync2()
+        {
+            var br = GetConnectedReader(GetDefaultAppCredentialTokenFactory(), Encoding.UTF8);
+            var fileName = FixedFileName;
+            string data = null;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await br.ReadDataAsync(fileName, ms);
+
+                data = new string(Encoding.UTF8.GetChars(ms.ToArray()));
+            }
+            Assert.False(string.IsNullOrEmpty(data), $"Failed to read blob file via {nameof(ReadDataAsync)}");
+        }
+        [Fact]
+        public void ReadData2()
+        {
+            var br = GetConnectedReader(GetDefaultAppCredentialTokenFactory(), "cloudfile", Encoding.UTF8);
+            var fileName = FixedFileName;
+            string data = null;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                br.ReadData(fileName, ms);
+                data = new string(Encoding.UTF8.GetChars(ms.ToArray()));
+            }
+            Assert.False(string.IsNullOrEmpty(data), $"Failed to read blob file via {nameof(ReadData)}");
+        }
+
+        [Fact]
+        public async Task WriteTextAsync2()
+        {
+            var br = GetConnectedWriter(GetDefaultAppCredentialTokenFactory());
+            var fileName = "l1/l3";
+            byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
+            var task = br.WriteToBlobAsync(data, fileName);
+            await task;
+            Assert.True(task.IsCompleted, "Failed to Write Async blob file");
+        }
+        [Fact]
+        public async Task WriteTextToContainerAsync2()
+        {
+            var br = GetConnectedWriter(GetDefaultAppCredentialTokenFactory(), "test");
+            var fileName = "l1/l3";
+            byte[] data = System.Text.Encoding.UTF8.GetBytes($"Test data: {DateTime.UtcNow.ToLongTimeString()}");
+            var task = br.WriteToBlobAsync(data, fileName);
+            await task;
+            Assert.True(task.IsCompleted, "Failed to Write Async blob file");
+        }
+        #endregion
+
+        private string FixedFileName => "FixedDirectory/S2715H.inf";
+
+        private static ILogger<DefaultAppCredentialTokenFactory> _Logger;
+        private static IDefaultAppCredentialTokenFactory GetDefaultAppCredentialTokenFactory()
+        {
+            var logger = _Logger ??= Connector.GetLogger<DefaultAppCredentialTokenFactory>();
+
+            IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory = new DefaultAppCredentialTokenFactory(Connector.GetApplicationSettings(), logger);
+            return defaultAppCredentialTokenFactory;
+        }
+
+        //private ICloudFileReader GetConnectedReader(Encoding encoding) => (new ReaderFactory(null)).Connect(Connector.GetContainerUri(),encoding);
+        //private ICloudFileReader GetConnectedReader() => (new ReaderFactory(null)).Connect(Connector.GetContainerUri());
+        //private ICloudFileWriter GetConnectedWriter() => (new WriterFactory(null)).Connect(Connector.GetContainerUri());
+        //private ICloudFileWriter GetConnectedWriter(Encoding encoding) => (new WriterFactory(null)).Connect(Connector.GetContainerUri(), encoding);
+
+        private ICloudFileReader GetConnectedReader(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory, string container, Encoding encoding) =>
+            (new ReaderFactory(defaultAppCredentialTokenFactory)).ConnectWithDefaultCredentials(Connector.ADControlledStorage, container, encoding);
+        private ICloudFileReader GetConnectedReader(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory, Encoding encoding) => 
+            (new ReaderFactory(defaultAppCredentialTokenFactory)).ConnectWithDefaultCredentials(Connector.ADControlledContainerUrl, encoding);
+
+        private ICloudFileWriter GetConnectedWriter(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory, string container) => 
+            (new WriterFactory(defaultAppCredentialTokenFactory)).ConnectWithDefaultCredentials(Connector.ADControlledStorage, container);
+
+        private ICloudFileWriter GetConnectedWriter(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory) => 
+            (new WriterFactory(defaultAppCredentialTokenFactory)).ConnectWithDefaultCredentials(Connector.ADControlledContainerUrl);
+
+        private ICloudFileReader GetConnectedReader(IDefaultAppCredentialTokenFactory defaultAppCredentialTokenFactory) => 
+            (new ReaderFactory(defaultAppCredentialTokenFactory)).ConnectWithDefaultCredentials(Connector.ADControlledContainerUrl);
 
     }
 }

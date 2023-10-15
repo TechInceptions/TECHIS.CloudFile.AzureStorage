@@ -27,6 +27,11 @@ namespace TECHIS.CloudFile.AzureStorage
             await _BlobManager.DeleteAsync(fileName);
         }
 
+        public async Task<(string Name, DateTimeOffset? LastModified)[]> GetLastModifiedDatesAsync(string containerPath)
+        {
+            return await _BlobManager.GetLastModifiedDatesAsync(containerPath);
+        }
+
         public string[] List(string containerPath)
         {
             return _BlobManager.List(containerPath);
